@@ -1020,7 +1020,8 @@
         <div class="contact-form-col fade-section">
           <h2>Get Your Free Quote</h2>
           <p>Contact us today for a free no-obligation quote. We cover Aylesbury and all areas within 30 miles.</p>
-          <form id="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+          <form id="contact-form" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact">
             <div class="form-group">
               <label for="name">Full Name</label>
               <input type="text" id="name" name="name" required placeholder="Your full name">
@@ -1226,10 +1227,10 @@
         e.preventDefault();
         var data = new FormData(form);
 
-        fetch(form.action, {
+        fetch('/', {
           method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString()
         })
         .then(function (response) {
           if (response.ok) {
